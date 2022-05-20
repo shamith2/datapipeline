@@ -1,5 +1,5 @@
-# sawtooth-simplewallet
-A simple sawtooth "simplewallet" transaction family example (processor + client)
+# sawtooth-datapipeline
+A datapipeline transaction family example (processor + client)
 
 # Introduction
 
@@ -140,45 +140,3 @@ To run sawtooth-simplewallet without Docker, we'll have to use a Ubuntu 16.04 OS
 **NOTE** If you prefer using the simplewallet client without directory prefix, you could add the `pyclient` directory to your `PATH` environment variable, as shown below:
 
 `export PATH = $PATH:<absolute-path-to-your-cloned-sawtooth-simplewallet-dir>/pyclient"`
-
-# Video Presentation
-A video presentation on YouTube uses this application as an example. It is "Hyperledger Sawtooth Application Development using 'SimpleWallet'". It is at https://youtu.be/4VUaZkwJdCc
-
-# Javascript Client
-
-The client is also written in Javascript using node.js. The `app.js` is the main javascript file from where the `main` function call occurs. Handlebars are used for templating, client related CSS and JavaScript code is written in public folder and server related files are written in `router/` folder. Running the default `docker-compose.yaml` file or the `simplewallet-build-client-js.yaml` launches the client, which is accessible at `localhost:3000`.
-
-How to use the simplewallet UI:
-
-1. Build and start the Docker containers:
-
-`docker-compose -f simplewallet-build-client-js.yaml up`
-
-2. Open bash shell in `simplewallet-client-js` container:
-
-`docker exec -it simplewallet-client-js bash`
-
-3. Create user accounts for jack and jill:
-
-`sawtooth keygen jack && sawtooth keygen jill`
-
-4. Open two new browser tabs and go to `http://localhost:3000` on each tab
-
-5. Login in one tab as `jack` and in other as `jill`
-
-6. Start with an initial deposit for each user - jack and jill via the `Deposit` tab in the UI homepage
-
-
-# Contributing
-Currently, we're looking for contributions and PRs for following:
- - TP using .NET sawtooth SDK
- - Client apps in GO, .NET, C++, and Java
-
-More ways you can contribute:
- - Bugs or issues: Report problems or defects found when working with simplewallet
- - Core features and enhancements: Provide expanded capabilities or optimizations
- - Documentation: Improve existing documentation or create new information
- - Tests: Add functional, performance, or scalability tests
-
-# License
-This example and Hyperledger Sawtooth software are licensed under the [Apache License Version 2.0](LICENSE) software license.
