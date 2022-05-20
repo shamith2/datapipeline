@@ -22,7 +22,7 @@ services:
     container_name: datapipeline-processor
     build:
       context: .
-      dockerfile: ./client_processor/Dockerfile
+      dockerfile: ./datapipeline_processor/Dockerfile
       args:
         - http_proxy
         - https_proxy
@@ -36,7 +36,7 @@ services:
     container_name: datapipeline-client
     build:
       context: .
-      dockerfile: ./client/Dockerfile
+      dockerfile: ./datapipeline_client/Dockerfile
       args:
         - http_proxy
         - https_proxy
