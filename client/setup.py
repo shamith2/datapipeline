@@ -42,7 +42,7 @@ setup(
     data_files=data_files,
     entry_points={
         'console_scripts': [
-            'simplewallet = simplewallet_cli:main_wrapper',
+            'datapipeline = datapipeline_cli:main_wrapper',
         ]
     })
 
