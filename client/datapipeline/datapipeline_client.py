@@ -43,9 +43,9 @@ FAMILY_NAME = "DATA_PIPELINE"
 def _hash(data):
     return hashlib.sha512(data).hexdigest()
 
-class ClientClass(object):
+class DataPipelineClient(object):
     '''
-    Base Client Class
+    Client for Data Pipeline
     
     '''
 
@@ -181,17 +181,7 @@ class ClientClass(object):
             "batches",
             batch_list.SerializeToString(),
             'application/octet-stream')
-
-
-class DataPipelineClient(ClientClass):
-    '''
-    Client for Data Pipleline
-    Supports: functions to store user data in data block, accept/deny requests to use user data
     
-    '''
-
-    def __init__(self, baseUrl, keyFile=None):
-        super().__init__(baseUrl, keyFile)
 
     # For each valid cli command in _cli.py file,
     # add methods to:
@@ -241,15 +231,6 @@ class DataPipelineClient(ClientClass):
         except BaseException:
             return None
     
-
-class WalletClient(ClientClass):
-    '''
-    Client for Wallet class
-    Supports: functions to deposit, withdraw, transfer, and balance
-
-    '''
-    def __init__(self, baseUrl, keyFile=None):
-        super().__init__(baseUrl, keyFile)
 
     # For each valid cli command in _cli.py file,
     # add methods to:
