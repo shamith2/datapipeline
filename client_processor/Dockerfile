@@ -1,4 +1,6 @@
-# Copyright 2018 Intel Corporation
+# Copyright 2022 Shamith Achanta
+#
+# References: https://github.com/askmish/sawtooth-simplewallet
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,7 +37,7 @@ RUN \
 
 EXPOSE 4004/tcp
 
-WORKDIR /project/simplewallet/pyprocessor
-ENV PATH "$PATH:/project/simplewallet/pyprocessor"
+WORKDIR /project/datapipeline/client_processor
+ENV PATH "$PATH:/project/datapipeline/client_processor"
 
-CMD bash -c './simplewallet-tp'
+CMD bash -c './dataprocessor-tp'
