@@ -22,7 +22,7 @@ This file is used for automated testing of the data pipeline client
 
 from sawtooth_processor_test.message_factory import MessageFactory
 
-class SimplewalletMessageFactory(object):
+class DataPipelineMessageFactory(object):
     def __init__(self, signer=None):
         self._factory = MessageFactory(
             family_name="DataPipeline",
@@ -82,4 +82,3 @@ class SimplewalletMessageFactory(object):
     def create_set_response(self, game):
         addresses = [self._make_address()]
         return self._factory.create_set_response(addresses)
-
