@@ -38,7 +38,7 @@ RUN \
 
 EXPOSE 4004/tcp
 
-WORKDIR /project/datapipeline/client_processor
-ENV PATH "$PATH:/project/datapipeline/client_processor"
+WORKDIR /project/datapipeline/processor
+ENV PATH "$PATH:/project/datapipeline/processor"
 
 CMD bash -c './dataprocessor-tp'
