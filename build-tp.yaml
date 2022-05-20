@@ -1,4 +1,6 @@
-# Copyright 2018 Intel Corporation
+# Copyright 2022 Shamith Achanta
+#
+# References: https://github.com/askmish/sawtooth-simplewallet
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,11 +18,11 @@
 version: '2.1'
 
 services:
-  simplewallet-processor:
-    container_name: simplewallet-processor
+  datapipeline-processor:
+    container_name: datapipeline-processor
     build:
       context: .
-      dockerfile: ./pyprocessor/Dockerfile
+      dockerfile: ./client_processor/Dockerfile
       args:
         - http_proxy
         - https_proxy
@@ -28,13 +30,13 @@ services:
     depends_on:
       - validator
     volumes:
-      - '.:/project/simplewallet/'
+      - '.:/project/datapipeline/'
 
-  simplewallet-client:
-    container_name: simplewallet-client
+  datapipeline-client:
+    container_name: datapipeline-client
     build:
       context: .
-      dockerfile: ./pyclient/Dockerfile
+      dockerfile: ./client/Dockerfile
       args:
         - http_proxy
         - https_proxy
@@ -44,7 +46,7 @@ services:
       - 'https_proxy=${https_proxy}'
       - 'no_proxy=rest-api,validator,${no_proxy}'
     volumes:
-      - '.:/project/simplewallet/'
+      - '.:/project/datapipeline/'
     ports:
       - '0.0.0.0:3000:3000'
     depends_on:
@@ -89,7 +91,7 @@ services:
         sawtooth keygen my_key &&
         sawset genesis -k /root/.sawtooth/keys/my_key.priv &&
         sawset proposal create -k /root/.sawtooth/keys/my_key.priv \
-        sawtooth.consensus.algorithm.name=Devmode \
+        sawtooth.consensus.algorithm.name=pbft \
         sawtooth.consensus.algorithm.version=0.1 \
         -o config.batch
         sawadm genesis config-genesis.batch config.batch
@@ -100,13 +102,13 @@ services:
           --bind network:tcp://eth0:8800 \
           --bind consensus:tcp://eth0:5050 \
       "
-  devmode-engine:
-    image: hyperledger/sawtooth-devmode-engine-rust:1.2
+  pbft-engine:
+    image: hyperledger/sawtooth-pbft-engine:latest
     expose:
       - 5050
     ports:
       - '5050:5050'
-    container_name: sawtooth-devmode-engine-rust-default
+    container_name: sawtooth-pbft-engine
     depends_on:
       - validator
-    entrypoint: devmode-engine-rust --connect tcp://validator:5050
+    entrypoint: pbft-engine --connect tcp://validator:5050
