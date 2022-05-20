@@ -1,4 +1,6 @@
-# Copyright 2018 Intel Corporation
+# Copyright 2022 Shamith Achanta
+#
+# References: https://github.com/askmish/sawtooth-simplewallet
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -75,9 +77,9 @@ RUN \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /project/simplewallet/pyclient
+WORKDIR /project/datapipeline/client
 
-ENV PATH "$PATH:/project/simplewallet/pyclient"
+ENV PATH "$PATH:/project/datapipeline/client"
 
 EXPOSE 3000
 
