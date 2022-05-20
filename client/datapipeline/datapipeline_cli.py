@@ -32,7 +32,7 @@ from colorlog import ColoredFormatter
 
 from datapipeline.datapipeline_client import DataPipelineClient
 
-DISTRIBUTION_NAME = "Data Pipeline"
+DISTRIBUTION_NAME = "datapipeline"
 DEFAULT_URL = "http://rest-api:8008"
 
 def create_console_handler(verbose_level):
