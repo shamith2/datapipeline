@@ -60,127 +60,238 @@ def setup_loggers(verbose_level):
     logger.addHandler(create_console_handler(verbose_level))
 
 def add_deposit_parser(subparsers, parent_parser):
-    '''Define the "deposit" command line parsing.'''
+    '''
+    Define the "deposit" command line parsing
+    
+    '''
     parser = subparsers.add_parser(
-        'deposit',
-        help='deposits a certain amount to an account',
+        "deposit",
+        help="deposits a certain amount to an account",
         parents=[parent_parser])
 
     parser.add_argument(
-        'value',
+        "value",
         type=int,
-        help='the amount to deposit')
+        help="the amount to deposit")
+
+    parser.add_argument(
+        "customerName",
+        type=str,
+        help="the name of customer to deposit to")
+
+def store_data_parser(subparsers, parent_parser):
+    '''
+    Define the "store" command line parsing
+    
+    '''
+    parser = subparsers.add_parser(
+        'store',
+        help='store data file',
+        parents=[parent_parser])
+
+    parser.add_argument(
+        'json_file',
+        type=int,
+        help='the data file to store')
 
     parser.add_argument(
         'customerName',
         type=str,
-        help='the name of customer to deposit to')
+        help='the name of customer')
 
 def add_withdraw_parser(subparsers, parent_parser):
-    '''Define the "withdraw" command line parsing.'''
+    '''
+    Define the "withdraw" command line parsing
+    
+    '''
     parser = subparsers.add_parser(
-        'withdraw',
-        help='withdraws a certain amount from your account',
+        "withdraw",
+        help="withdraws a certain amount from your account",
         parents=[parent_parser])
 
     parser.add_argument(
-        'value',
+        "value",
         type=int,
-        help='the amount to withdraw')
+        help="the amount to withdraw")
 
     parser.add_argument(
-        'customerName',
+        "customerName",
         type=str,
-        help='the name of customer to withdraw from')
+        help="the name of customer to withdraw from")
+
+def remove_data_parser(subparsers, parent_parser):
+    '''
+    Define the "remove" command line parsing
+    
+    '''
+    parser = subparsers.add_parser(
+        "remove",
+        help="remove data file",
+        parents=[parent_parser])
+
+    parser.add_argument(
+        "json_file",
+        type=int,
+        help="the data file to remove")
+
+    parser.add_argument(
+        "customerName",
+        type=str,
+        help="the name of customer")
 
 def add_balance_parser(subparsers, parent_parser):
-    '''Define the "balance" command line parsing.'''
+    '''
+    Define the "balance" command line parsing
+    
+    '''
     parser = subparsers.add_parser(
-        'balance',
-        help='shows balance in your account',
+        "balance",
+        help="shows balance in your account",
         parents=[parent_parser])
 
     parser.add_argument(
-        'customerName',
+        "customerName",
         type=str,
-        help='the name of customer to withdraw from')
+        help="the name of customer to withdraw from")
+
+def show_state_parser(subparsers, parent_parser):
+    '''
+    Define the "show_state" command line parsing
+    
+    '''
+    parser = subparsers.add_parser(
+        "show_state",
+        help="show state",
+        parents=[parent_parser])
+
+    parser.add_argument(
+        "customerName",
+        type=str,
+        help="the name of customer")
 
 def add_transfer_parser(subparsers, parent_parser):
-    '''Define the "transfer" command line parsing.'''
+    '''
+    Define the "transfer" command line parsing
+    
+    '''
     parser = subparsers.add_parser(
-        'transfer',
-        help='transfers balance from one account to the other',
+        "transfer",
+        help="transfers balance from one account to the other",
         parents=[parent_parser])
 
     parser.add_argument(
-        'value',
+        "value",
         type=int,
-        help='the amount to withdraw')
+        help="the amount to withdraw")
 
     parser.add_argument(
-        'customerNameFrom',
+        "customerNameFrom",
         type=str,
-        help='the name of customer to withdraw from')
+        help="the name of customer to withdraw from")
 
     parser.add_argument(
-        'customerNameTo',
+        "customerNameTo",
         type=str,
-        help='the name of customer to deposit to')
+        help="the name of customer to deposit to")
+
+def data_transfer_parser(subparsers, parent_parser):
+    '''
+    Define the "transfer" command line parsing
+    
+    '''
+    parser = subparsers.add_parser(
+        "data_transfer",
+        help="transfer data file balance from one account to the other",
+        parents=[parent_parser])
+
+    parser.add_argument(
+        "json_file",
+        type=int,
+        help="the data file to transfer")
+
+    parser.add_argument(
+        "customerNameFrom",
+        type=str,
+        help="the name of customer to withdraw from")
+
+    parser.add_argument(
+        "customerNameTo",
+        type=str,
+        help="the name of customer to deposit to")
 
 def create_parent_parser(prog_name):
-    '''Define the -V/--version command line options.'''
+    '''
+    Define the -V/--version command line options
+    
+    '''
     parent_parser = argparse.ArgumentParser(prog=prog_name, add_help=False)
 
     try:
         version = pkg_resources.get_distribution(DISTRIBUTION_NAME).version
     except pkg_resources.DistributionNotFound:
-        version = 'UNKNOWN'
+        version = "UNKNOWN"
 
     parent_parser.add_argument(
-        '-V', '--version',
-        action='version',
-        version=(DISTRIBUTION_NAME + ' (Hyperledger Sawtooth) version {}')
+        "-V", "--version",
+        action="version",
+        version=(DISTRIBUTION_NAME + " (Hyperledger Sawtooth) version {}")
         .format(version),
-        help='display version information')
+        help="display version information")
 
     return parent_parser
 
 
 def create_parser(prog_name):
-    '''Define the command line parsing for all the options and subcommands.'''
+    '''
+    Define the command line parsing for all the options and subcommands
+    
+    '''
     parent_parser = create_parent_parser(prog_name)
 
     parser = argparse.ArgumentParser(
-        description='Provides subcommands to manage your simple wallet',
+        description="Provides subcommands to manage data pipeline",
         parents=[parent_parser])
 
-    subparsers = parser.add_subparsers(title='subcommands', dest='command')
+    subparsers = parser.add_subparsers(title="subcommands", dest="command")
 
     subparsers.required = True
 
     add_deposit_parser(subparsers, parent_parser)
+    store_data_parser(subparsers, parent_parser)
     add_withdraw_parser(subparsers, parent_parser)
+    remove_data_parser(subparsers, parent_parser)
     add_balance_parser(subparsers, parent_parser)
+    show_state_parser(subparsers, parent_parser)
     add_transfer_parser(subparsers, parent_parser)
+    data_transfer_parser(subparsers, parent_parser)
 
     return parser
 
 def _get_keyfile(customerName):
-    '''Get the private key for a customer.'''
+    '''
+    Get the private key for a customer
+    
+    '''
     home = os.path.expanduser("~")
     key_dir = os.path.join(home, ".sawtooth", "keys")
 
     return '{}/{}.priv'.format(key_dir, customerName)
 
 def _get_pubkeyfile(customerName):
-    '''Get the public key for a customer.'''
+    '''
+    Get the public key for a customer
+    
+    '''
     home = os.path.expanduser("~")
     key_dir = os.path.join(home, ".sawtooth", "keys")
 
     return '{}/{}.pub'.format(key_dir, customerName)
 
 def do_deposit(args):
-    '''Implements the "deposit" subcommand by calling the client class.'''
+    '''
+    Implements the "deposit" subcommand by calling the client class
+    
+    '''
     keyfile = _get_keyfile(args.customerName)
 
     client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
@@ -189,8 +300,24 @@ def do_deposit(args):
 
     print("Response: {}".format(response))
 
+def do_store(args):
+    '''
+    Implements the "store" subcommand by calling the client class
+    
+    '''
+    keyfile = _get_keyfile(args.customerName)
+
+    client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
+
+    response = client.store(args.json_file)
+
+    print("Response: {}".format(response))
+
 def do_withdraw(args):
-    '''Implements the "withdraw" subcommand by calling the client class.'''
+    '''
+    Implements the "withdraw" subcommand by calling the client class
+    
+    '''
     keyfile = _get_keyfile(args.customerName)
 
     client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
@@ -199,8 +326,24 @@ def do_withdraw(args):
 
     print("Response: {}".format(response))
 
+def do_remove(args):
+    '''
+    Implements the "remove" subcommand by calling the client class
+    
+    '''
+    keyfile = _get_keyfile(args.customerName)
+
+    client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
+
+    response = client.remove(args.json_file)
+
+    print("Response: {}".format(response))
+
 def do_balance(args):
-    '''Implements the "balance" subcommand by calling the client class.'''
+    '''
+    Implements the "balance" subcommand by calling the client class
+    
+    '''
     keyfile = _get_keyfile(args.customerName)
 
     client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
@@ -213,14 +356,44 @@ def do_balance(args):
     else:
         raise Exception("Data not found: {}".format(args.customerName))
 
+def show_state(args):
+    '''
+    Implements the "state" subcommand by calling the client class
+    
+    '''
+    keyfile = _get_keyfile(args.customerName)
+
+    client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
+
+    data = client.show_state()
+
+    if data is None:
+        raise Exception("Data not found: {}".format(args.customerName))
+
 def do_transfer(args):
-    '''Implements the "transfer" subcommand by calling the client class.'''
+    '''
+    Implements the "transfer" subcommand by calling the client class
+    
+    '''
     keyfileFrom = _get_keyfile(args.customerNameFrom)
     keyfileTo = _get_pubkeyfile(args.customerNameTo)
 
     clientFrom = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfileFrom)
 
     response = clientFrom.transfer(args.value, keyfileTo)
+    print("Response: {}".format(response))
+
+def data_transfer(args):
+    '''
+    Implements the "data_transfer" subcommand by calling the client class
+    
+    '''
+    keyfileFrom = _get_keyfile(args.customerNameFrom)
+    keyfileTo = _get_pubkeyfile(args.customerNameTo)
+
+    clientFrom = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfileFrom)
+
+    response = clientFrom.data_transfer(args.json_file, keyfileTo)
     print("Response: {}".format(response))
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
@@ -235,12 +408,18 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
     setup_loggers(verbose_level=verbose_level)
 
     # Get the commands from cli args and call corresponding handlers
-    if args.command == 'deposit':
+    if args.command == "deposit":
         do_deposit(args)
-    elif args.command == 'withdraw':
+    elif args.command == "store":
+        do_store(args)
+    elif args.command == "withdraw":
         do_withdraw(args)
-    elif args.command == 'balance':
+    elif args.command == "remove":
+        do_remove(args)
+    elif args.command == "balance":
         do_balance(args)
+    elif args.command == "state":
+        show_state(args)
     elif args.command == 'transfer':
         # Cannot deposit and withdraw from own account. noop.
         if args.customerNameFrom == args.customerNameTo:
@@ -248,6 +427,13 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
                                         .format(args.customerNameFrom))
 
         do_transfer(args)
+    elif args.command == "data_transfer":
+        # Cannot deposit and withdraw from own account. noop.
+        if args.customerNameFrom == args.customerNameTo:
+            raise Exception("Cannot transfer money to self: {}"
+                                        .format(args.customerNameFrom))
+
+        data_transfer(args)
     else:
         raise Exception("Invalid command: {}".format(args.command))
 
@@ -262,4 +448,3 @@ def main_wrapper():
     except BaseException as err:
         traceback.print_exc(file=sys.stderr)
         sys.exit(1)
-
