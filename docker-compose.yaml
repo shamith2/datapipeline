@@ -1,4 +1,6 @@
-# Copyright 2018 Intel Corporation
+# Copyright 2022 Shamith Achanta
+#
+# References: https://github.com/askmish/sawtooth-simplewallet
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,23 +18,23 @@
 version: '2.1'
 
 services:
-  simplewallet-processor:
-    container_name: simplewallet-processor
-    image: askmish/sawtooth-simplewallet-tp-cxx:latest
+  datapipeline-processor:
+    container_name: datapipeline-processor
+    image: shamith/sawtooth-datapipeline-tp-cxx:latest
     depends_on:
       - validator
     volumes:
-      - '.:/project/simplewallet/'
+      - '.:/project/datapipeline/'
 
-  simplewallet-client:
-    container_name: simplewallet-client
-    image: askmish/sawtooth-simplewallet-client-python:latest
+  datapipeline-client:
+    container_name: datapipeline-client
+    image: shamith/sawtooth-datapipeline-client-python:latest
     environment:
       - 'http_proxy=${http_proxy}'
       - 'https_proxy=${https_proxy}'
       - 'no_proxy=rest-api,validator,${no_proxy}'
     volumes:
-      - '.:/project/simplewallet/'
+      - '.:/project/datapipeline/'
     ports:
       - '0.0.0.0:3000:3000'
     depends_on:
