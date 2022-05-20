@@ -17,7 +17,7 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-from datapipeline_client.datapipeline_cli import main_wrapper
+from datapipeline.datapipeline_cli import main_wrapper
 
 if __name__ == '__main__':
     main_wrapper()
