@@ -22,7 +22,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
  apt-get update \
  && apt-get install -y -q curl gnupg \
- && curl -sSL 'http://p80.pool.sks-keyservers.net/pks/lookup?op=get&search=0x8AA7AF1F1091A5FD' | apt-key add -  \
+ && curl -sSL 'http://p80.pool.sks-keyservers.net/pks/lookup?op=get&search=0x8AA7AF1F1091A5FD' | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add -  \
  && echo 'deb [arch=amd64] http://repo.sawtooth.me/ubuntu/chime/stable bionic universe' >> /etc/apt/sources.list \
  && apt-get update
 
