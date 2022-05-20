@@ -20,7 +20,7 @@ version: '2.1'
 services:
   datapipeline-processor:
     container_name: datapipeline-processor
-    image: shamith/sawtooth-datapipeline-tp-cxx:latest
+    image: shamith2/sawtooth-datapipeline-tp-cxx:latest
     depends_on:
       - validator
     volumes:
@@ -28,7 +28,7 @@ services:
 
   datapipeline-client:
     container_name: datapipeline-client
-    image: shamith/sawtooth-datapipeline-client-python:latest
+    image: shamith2/sawtooth-datapipeline-client-python:latest
     environment:
       - 'http_proxy=${http_proxy}'
       - 'https_proxy=${https_proxy}'
