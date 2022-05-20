@@ -22,7 +22,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
  apt-get update \
  && apt-get install -y -q curl gnupg \
- && gpg --keyserver keyserver.ubuntu.com --recv-key 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB \
+ && gpg --keyserver keyserver.ubuntu.com --recv 1091A5FD  \
  | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add -  \
  && echo 'deb [arch=amd64] http://repo.sawtooth.me/ubuntu/chime/stable bionic universe' >> /etc/apt/sources.list \
  && apt-get update
