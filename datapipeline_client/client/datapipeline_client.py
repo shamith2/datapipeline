@@ -190,19 +190,16 @@ class DataPipelineClient(object):
     # 2. Send to rest-api
 
     def store_data(self, json_file):
-        return self._wrap_and_send("store", json_file)
+        return self._wrap_and_send("store", str(json_file))
 
     def remove_data(self, json_file):
         try:
-            retValue = self._wrap_and_send("remove", json_file)
+            retValue = self._wrap_and_send("remove", str(json_file))
         
         except Exception:
             raise Exception("Encountered an error during Data Removal")
         
         return retValue
-    
-    def request(self, json_file):
-        pass
 
     def data_transfer(self, json_file, clientToKey, accept):
         if (accept):
@@ -210,7 +207,7 @@ class DataPipelineClient(object):
                 with open(clientToKey) as fd:
                     publicKeyStr = fd.read().strip()
                 
-                retValue = self._wrap_and_send("data_transfer", json_file, publicKeyStr)
+                retValue = self._wrap_and_send("data_transfer", str(json_file), publicKeyStr)
             
             except OSError as err:
                 raise Exception("Failed to read public key {}: {}".format(clientToKey, str(err)))

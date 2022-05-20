@@ -38,7 +38,7 @@ setup(
         'sawtooth-sdk',
         'sawtooth-signing',
         'PyYAML',
-        'colorlog',
+        'yaml',
     ],
     data_files=data_files,
     entry_points={
