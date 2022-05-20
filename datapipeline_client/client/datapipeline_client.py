@@ -38,12 +38,12 @@ from sawtooth_sdk.protobuf.batch_pb2 import BatchHeader
 from sawtooth_sdk.protobuf.batch_pb2 import Batch
 
 # Transaction Family Name
-FAMILY_NAME = "DATA_PIPELINE"
+FAMILY_NAME = "datapipeline"
 
 def _hash(data):
     return hashlib.sha512(data).hexdigest()
 
-class DataPipelineClient(object):
+class BaseClientClass(object):
     '''
     Client for Data Pipeline
     
@@ -183,6 +183,11 @@ class DataPipelineClient(object):
             'application/octet-stream')
     
 
+class DataPipelineClient(BaseClientClass):
+
+    def __init__(self, baseUrl, keyFile=None):
+    	super().__init__(baseUrl, keyFile)
+    	
     # For each valid cli command in _cli.py file,
     # add methods to:
     # 1. Do any additional handling, if required
@@ -229,6 +234,11 @@ class DataPipelineClient(object):
             return None
     
 
+class WalletClient(BaseClientClass):
+
+    def __init__(self, baseUrl, keyFile=None):
+    	super().__init__(baseUrl, keyFile)
+    	
     # For each valid cli command in _cli.py file,
     # add methods to:
     # 1. Do any additional handling, if required

@@ -33,7 +33,7 @@ from sawtooth_sdk.processor.core import TransactionProcessor
 LOGGER = logging.getLogger(__name__)
 
 # Transaction Family Name
-FAMILY_NAME = "DATA_PIPELINE"
+FAMILY_NAME = "datapipeline"
 
 def _hash(data):
     '''Compute the SHA-512 hash and return the result as hex characters.'''

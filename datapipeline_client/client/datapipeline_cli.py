@@ -31,6 +31,7 @@ import pkg_resources
 from colorlog import ColoredFormatter
 
 from client.datapipeline_client import DataPipelineClient
+from client.datapipeline_client import WallClient
 
 DISTRIBUTION_NAME = "datapipeline"
 DEFAULT_URL = "http://rest-api:8008"
@@ -294,7 +295,7 @@ def do_deposit(args):
     '''
     keyfile = _get_keyfile(args.customerName)
 
-    client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
+    client = WalletClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
 
     response = client.deposit(args.value)
 
@@ -320,7 +321,7 @@ def do_withdraw(args):
     '''
     keyfile = _get_keyfile(args.customerName)
 
-    client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
+    client = WalletClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
 
     response = client.withdraw(args.value)
 
@@ -346,7 +347,7 @@ def do_balance(args):
     '''
     keyfile = _get_keyfile(args.customerName)
 
-    client = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
+    client = WalletClient(baseUrl=DEFAULT_URL, keyFile=keyfile)
 
     data = client.balance()
 
@@ -378,7 +379,7 @@ def do_transfer(args):
     keyfileFrom = _get_keyfile(args.customerNameFrom)
     keyfileTo = _get_pubkeyfile(args.customerNameTo)
 
-    clientFrom = DataPipelineClient(baseUrl=DEFAULT_URL, keyFile=keyfileFrom)
+    clientFrom = WalletClient(baseUrl=DEFAULT_URL, keyFile=keyfileFrom)
 
     response = clientFrom.transfer(args.value, keyfileTo)
     print("Response: {}".format(response))
