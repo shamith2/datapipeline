@@ -30,7 +30,7 @@ import pkg_resources
 
 from colorlog import ColoredFormatter
 
-from datapipeline.datapipeline_client import DataPipelineClient
+from client.datapipeline_client import DataPipelineClient
 
 DISTRIBUTION_NAME = "datapipeline"
 DEFAULT_URL = "http://rest-api:8008"
@@ -397,7 +397,11 @@ def data_transfer(args):
     print("Response: {}".format(response))
 
 def main(prog_name=os.path.basename(sys.argv[0]), args=None):
-    '''Entry point function for the client CLI.'''
+    '''
+    Entry point function for the client CLI
+    
+    '''
+    
     if args is None:
         args = sys.argv[1:]
     parser = create_parser(prog_name)

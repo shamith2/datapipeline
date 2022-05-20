@@ -38,11 +38,12 @@ setup(
         'sawtooth-sdk',
         'sawtooth-signing',
         'PyYAML',
+        'colorlog',
     ],
     data_files=data_files,
     entry_points={
         'console_scripts': [
-            'datapipeline = datapipeline_cli:main_wrapper',
+            'datapipeline_cmd = datapipeline_cli:main_wrapper',
         ]
     })
 
