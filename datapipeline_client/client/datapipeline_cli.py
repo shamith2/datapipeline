@@ -31,7 +31,7 @@ import pkg_resources
 from colorlog import ColoredFormatter
 
 from client.datapipeline_client import DataPipelineClient
-from client.datapipeline_client import WallClient
+from client.datapipeline_client import WalletClient
 
 DISTRIBUTION_NAME = "datapipeline"
 DEFAULT_URL = "http://rest-api:8008"
@@ -428,15 +428,13 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
     elif args.command == 'transfer':
         # Cannot deposit and withdraw from own account. noop.
         if args.customerNameFrom == args.customerNameTo:
-            raise Exception("Cannot transfer money to self: {}"
-                                        .format(args.customerNameFrom))
+            raise Exception("Cannot transfer money to self: {}".format(args.customerNameFrom))
 
         do_transfer(args)
     elif args.command == "data_transfer":
         # Cannot deposit and withdraw from own account. noop.
         if args.customerNameFrom == args.customerNameTo:
-            raise Exception("Cannot transfer money to self: {}"
-                                        .format(args.customerNameFrom))
+            raise Exception("Cannot transfer money to self: {}".format(args.customerNameFrom))
 
         data_transfer(args)
     else:
